@@ -41,8 +41,8 @@ Our demo part here is a helix heat exchanger with two tightly twisted (helical) 
 Set up a new Visual Studio (VS) project with the structure and components presented in Tutorial 1 for the ShapeKernel library. Now, we are adding a src folder for the files that are specific to the heat exchanger. 
 
 - Beginner and Pro
-  - download the Helix HeatX source code as zip files from **LINK**
-  - un-zip and copy the files into your VS project folder
+  - download the source code from this repository: https://github.com/leap71/LEAP71_HelixHeatX/tree/main
+  - un-zip and copy the **src folder** into your VS project folder
 
 We recommend using the same structure for all your projects with the src folder holding the engineering code. Your VS project tree should look like this:
 
