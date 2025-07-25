@@ -45,7 +45,7 @@ namespace Leap71
     {
         public partial class HelixHeatX
         {
-            protected Vector3 vecTrafo(Vector3 vecPt)
+            Vector3 vecTrafo(Vector3 vecPt)
             {
                 return VecOperations.vecTranslatePointOntoFrame(m_oCentreBottomFrame, vecPt);
             }
@@ -53,7 +53,7 @@ namespace Leap71
             /// <summary>
             /// Describes the inner radius distribution of the helix / spiral.
             /// </summary>
-            protected float fGetInnerRadius(float fPhi, float fLengthRatio)
+            float fGetInnerRadius(float fPhi, float fLengthRatio)
             {
                 return 10f * Uf.fGetSuperShapeRadius(fPhi, Uf.ESuperShape.ROUND);
             }
@@ -61,7 +61,7 @@ namespace Leap71
             /// <summary>
             /// Describes the outer radius distribution of the helix / spiral.
             /// </summary>
-            protected float fGetOuterRadius(float fPhi, float fLengthRatio)
+            float fGetOuterRadius(float fPhi, float fLengthRatio)
             {
                 return 50f * Uf.fGetSuperShapeRadius(fPhi, Uf.ESuperShape.QUAD);
             }
@@ -70,11 +70,11 @@ namespace Leap71
             /// Generates a vertical wall along the centre hole of the spiral fluid volumes
             /// in order to support them during the print.
             /// </summary>
-            protected void AddCentrePiece(ref Voxels voxOuterVolume)
+            void AddCentrePiece(ref Voxels voxOuterVolume)
             {
                 BaseBox oFirstBox   = new BaseBox(m_oCentreBottomFrame, 100, 20, 2);
                 Voxels voxFirstBox  = oFirstBox.voxConstruct();
-                voxOuterVolume      = Sh.voxUnion(voxOuterVolume, voxFirstBox);
+                voxOuterVolume      += voxFirstBox;
             }
 		}
 	}

@@ -83,9 +83,9 @@ namespace Leap71
                         aCutterList.Add(oCutter.voxConstruct());
                     }
                 }
-                voxScrewHoles   = Sh.voxUnion(aScrewList);
-                voxScrewCutter  = Sh.voxUnion(aCutterList);
-                voxFlange       = Sh.voxUnion(aFlangeList);
+                voxScrewHoles   = Voxels.voxCombineAll(aScrewList);
+                voxScrewCutter  = Voxels.voxCombineAll(aCutterList);
+                voxFlange       = Voxels.voxCombineAll(aFlangeList);
             }
 		}
 	}

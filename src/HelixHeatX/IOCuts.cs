@@ -48,7 +48,7 @@ namespace Leap71
             /// <summary>
             /// Generates shapes to cut open all inlet and outlet pipe ends.
             /// </summary>
-            protected Voxels voxGetIOCuts()
+            Voxels voxGetIOCuts()
             {
                 List<Voxels> aVoxelList     = new List<Voxels>();
                 float fCutRadius            = 2.5f;
@@ -83,7 +83,7 @@ namespace Leap71
                     oFrame4.vecGetPosition() - 4f * oFrame4.vecGetLocalZ(), 7f, 2f,
                     false)));
 
-                Voxels voxIOCuts            = Sh.voxUnion(aVoxelList);
+                Voxels voxIOCuts            = Voxels.voxCombineAll(aVoxelList);
                 Sh.PreviewVoxels(voxIOCuts, Cp.clrRed, 0.3f);
                 return voxIOCuts;
             }
@@ -92,7 +92,7 @@ namespace Leap71
             /// Generates screw threads positioned on all inlets and outlets.
             /// They can be used to simulate the post-processed part.
             /// </summary>
-            protected Voxels voxGetIOScrewCuts()
+            Voxels voxGetIOScrewCuts()
             {
                 List<Voxels> aVoxelList   = new List<Voxels>();
                 float fCoreRadius           = 5f;
@@ -111,7 +111,7 @@ namespace Leap71
                 aVoxelList.Add(oCut3.voxConstruct());
                 aVoxelList.Add(oCut4.voxConstruct());
 
-                Voxels voxScrews            = Sh.voxUnion(aVoxelList);
+                Voxels voxScrews            = Voxels.voxCombineAll(aVoxelList);
                 Sh.PreviewVoxels(voxScrews, Cp.clrRed, 0.4f);
                 return voxScrews;
             }

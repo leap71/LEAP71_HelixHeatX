@@ -49,7 +49,7 @@ namespace Leap71
             /// Generates the helical fluid volume of the specified type (first fluid or second fluid).
             /// Including the inlet and oulet splitter walls.
             /// </summary>
-            protected void GetHelicalVoid(out Voxels voxInnerVolume, out Voxels voxSplitters, EFluid eFluid)
+            void GetHelicalVoid(out Voxels voxInnerVolume, out Voxels voxSplitters, EFluid eFluid)
             {
                 float fPhiStart = MathF.PI;
                 if (eFluid == EFluid.COOL)
@@ -66,7 +66,7 @@ namespace Leap71
                 float fTurns        = nTurns - 0.5f;
                 float fSlope        = (fTurns * 2f * MathF.PI) / fTotalLength;
 
-                //helical void
+                // helical void
                 Lattice latVoid     = new Lattice();
                 Vector3 vecFirstPt1 = new Vector3();
                 Vector3 vecFirstPt2 = new Vector3();
@@ -106,9 +106,9 @@ namespace Leap71
                 GetInlet(   out Voxels voxInlet,    out Voxels voxInletSplitter, eFluid, vecFirstPt1, vecFirstPt2, fBeam);
                 GetOutlet(  out Voxels voxOutlet,   out Voxels voxOutletSplitter, eFluid, vecLastPt1, vecLastPt2, fBeam);
 
-                voxInnerVolume      = Sh.voxUnion(voxInlet, voxOutlet);
-                voxInnerVolume      = Sh.voxUnion(voxInnerVolume, voxHelicalVoid);
-                voxSplitters        = Sh.voxUnion(voxInletSplitter, voxOutletSplitter);
+                voxInnerVolume      = voxInlet + voxOutlet;
+                voxInnerVolume      += voxHelicalVoid;
+                voxSplitters        = voxInletSplitter + voxOutletSplitter;
             }
 		}
 	}

@@ -45,11 +45,11 @@ namespace Leap71
 	{
 		public class ThreadCutter
 		{
-			protected LocalFrame	m_oFrame;
-			protected float			m_fLength;
-			protected float			m_fSlope;
-			protected float			m_fCoreRadius;
-			protected float			m_fMaxRadius;
+			LocalFrame		m_oFrame;
+			float			m_fLength;
+			float			m_fSlope;
+			float			m_fCoreRadius;
+			float			m_fMaxRadius;
 
 			/// <summary>
 			/// Screw cutter for simulating a post-production thread cut.
@@ -90,8 +90,8 @@ namespace Leap71
 					Vector3 vecPt2		= VecOperations.vecTranslatePointOntoFrame(m_oFrame, vecRel2);
 					oLattice.AddBeam(vecPt1, fBeam1, vecPt2, fBeam2, false);
 				}
-                Voxels voxThread		= Sh.voxUnion(voxCore, new Voxels(oLattice));
-				voxThread				= Sh.voxIntersect(voxThread, voxBounding);
+                Voxels voxThread		= voxCore + new Voxels(oLattice);
+				voxThread				&= voxBounding;
 				return voxThread;
 			}
 		}

@@ -50,7 +50,7 @@ namespace Leap71
             /// the part touches the build plate.
             /// Cuts away small grooves for powder removal.
             /// </summary>
-            protected Voxels voxGetPrintWeb()
+            Voxels voxGetPrintWeb()
             {
                 float fZ            = -4f;
                 float fBeam         = 0.8f;

@@ -45,11 +45,11 @@ namespace Leap71
 	{
 		public class ScrewHole
 		{
-			protected LocalFrame	m_oFrame;
-			protected float			m_fLength;
-            protected float         m_fCoreRadius;
-            protected float			m_fHeadLength;
-			protected float			m_fHeadRadius;
+			LocalFrame	m_oFrame;
+			float			m_fLength;
+            float         m_fCoreRadius;
+            float			m_fHeadLength;
+			float			m_fHeadRadius;
 
 
             /// <summary>
@@ -77,11 +77,11 @@ namespace Leap71
                 Lattice latScrew    = new Lattice();
                 Vector3 vecDir      = m_oFrame.vecGetLocalZ();
 
-                //head
+                // head
                 Vector3 vecPt1      = m_oFrame.vecGetPosition();
                 Vector3 vecPt0      = vecPt1 + vecDir * m_fHeadLength;
 
-                //thread
+                // thread
                 Vector3 vecPt2      = m_oFrame.vecGetPosition() - vecDir * m_fLength;
                 Vector3 vecPt3      = vecPt2 - vecDir * (2f * m_fCoreRadius);
 

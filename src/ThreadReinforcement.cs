@@ -44,10 +44,10 @@ namespace Leap71
     {
         public class ThreadReinforcement
         {
-            protected LocalFrame    m_oFrame;
-            protected float         m_fLength;
-            protected float         m_fInnerRadius;
-            protected float         m_fOuterRadius;
+            LocalFrame    m_oFrame;
+            float         m_fLength;
+            float         m_fInnerRadius;
+            float         m_fOuterRadius;
 
 
             /// <summary>
@@ -76,7 +76,7 @@ namespace Leap71
                 return voxFlange;
             }
 
-            protected float fGetOuterRadius(float fPhi, float fLengthRatio)
+            float fGetOuterRadius(float fPhi, float fLengthRatio)
             {
                 float fRadius = m_fOuterRadius;
                 if (fLengthRatio > 0.75f)
@@ -86,7 +86,7 @@ namespace Leap71
                 return fRadius;
             }
 
-            protected float fGetInnerRadius(float fPhi, float fLengthRatio)
+            float fGetInnerRadius(float fPhi, float fLengthRatio)
             {
                 float fRadius = m_fInnerRadius;
                 return fRadius;

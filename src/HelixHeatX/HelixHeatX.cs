@@ -45,16 +45,16 @@ namespace Leap71
     {
         public partial class HelixHeatX
         {
-            protected enum EFluid   { COOL, HOT };
-            protected LocalFrame    m_oFirstInletFrame;
-            protected LocalFrame    m_oSecondInletFrame;
-            protected LocalFrame    m_oFirstOutletFrame;
-            protected LocalFrame    m_oSecondOutletFrame;
-            protected LocalFrame    m_oCentreBottomFrame;
-            protected float         m_fIORadius;
-            protected Voxels        m_voxBounding;
-            protected float         m_fPlateThickness;
-            protected float         m_fWallThickness;
+            enum EFluid   { COOL, HOT };
+            LocalFrame    m_oFirstInletFrame;
+            LocalFrame    m_oSecondInletFrame;
+            LocalFrame    m_oFirstOutletFrame;
+            LocalFrame    m_oSecondOutletFrame;
+            LocalFrame    m_oCentreBottomFrame;
+            float         m_fIORadius;
+            Voxels        m_voxBounding;
+            float         m_fPlateThickness;
+            float         m_fWallThickness;
 
 
             /// <summary>
@@ -96,7 +96,7 @@ namespace Leap71
                 Sh.PreviewCylinderWireframe(    oSecondOutlet,  Cp.clrRed);
 
 
-                //inputs
+                // inputs
                 m_oCentreBottomFrame        = new LocalFrame(new Vector3(-50, 0, 50), Vector3.UnitX, Vector3.UnitZ);
                 BaseBox oOuterBox           = new BaseBox(new LocalFrame(new Vector3(0, 0, -4)), 107, 2f * fHalfIOLengthSpacing + 24f, 104);
                 m_voxBounding               = oOuterBox.voxConstruct();
@@ -117,19 +117,19 @@ namespace Leap71
 
                 Voxels voxHotCornerFins     = voxGetTurningFins(EFluid.HOT);
                 Voxels voxCoolCornerFins    = voxGetTurningFins(EFluid.COOL);
-                Voxels voxAllCornerFins     = Sh.voxUnion(voxHotCornerFins, voxCoolCornerFins);
+                Voxels voxAllCornerFins     = voxHotCornerFins + voxCoolCornerFins;
                 Sh.PreviewVoxels(voxAllCornerFins, Cp.clrWarning, 0.5f);
                 Library.oViewer().RequestScreenShot(Sh.strGetExportPath(Sh.EExport.TGA, $"Screenshot_01"));
 
 
                 Voxels voxHotStraightFins   = voxGetStraightFins(EFluid.HOT);
                 Voxels voxCoolStraightFins  = voxGetStraightFins(EFluid.COOL);
-                Voxels voxAllStraightFins   = Sh.voxUnion(voxHotStraightFins, voxCoolStraightFins);
+                Voxels voxAllStraightFins   = voxHotStraightFins + voxCoolStraightFins;
                 Sh.PreviewVoxels(voxAllStraightFins, Cp.clrToothpaste, 0.5f);
                 Library.oViewer().RequestScreenShot(Sh.strGetExportPath(Sh.EExport.TGA, $"Screenshot_02"));
 
 
-                Voxels voxFins              = Sh.voxUnion(voxAllCornerFins, voxAllStraightFins);
+                Voxels voxFins              = voxAllCornerFins + voxAllStraightFins;
                 Sh.PreviewVoxels(voxFins, Cp.clrRock);
 
 
@@ -149,17 +149,17 @@ namespace Leap71
                     EFluid.COOL);
 
 
-                voxHotFluidVoid         = Sh.voxSubtract(voxHotFluidVoid, Sh.voxOffset(voxCoolFluidVoid, m_fWallThickness));
-                voxCoolFluidVoid        = Sh.voxSubtract(voxCoolFluidVoid, Sh.voxOffset(voxHotFluidVoid, m_fWallThickness));
+                voxHotFluidVoid         -= voxCoolFluidVoid.voxOffset(m_fWallThickness);
+                voxCoolFluidVoid        -= voxHotFluidVoid.voxOffset(m_fWallThickness);
                 Sh.PreviewVoxels(voxHotFluidVoid, Cp.clrPitaya, 0.5f);
                 Library.oViewer().RequestScreenShot(Sh.strGetExportPath(Sh.EExport.TGA, $"Screenshot_03"));
                 Sh.PreviewVoxels(voxCoolFluidVoid, Cp.clrFrozen, 0.5f);
                 Library.oViewer().RequestScreenShot(Sh.strGetExportPath(Sh.EExport.TGA, $"Screenshot_04"));
 
 
-                Voxels voxInnerVolume   = Sh.voxUnion(voxHotFluidVoid, voxCoolFluidVoid);
-                Voxels voxSplitters     = Sh.voxUnion(voxHotFluidSplitters, voxCoolFluidSplitters);
-                Voxels voxOuterVolume   = Sh.voxOffset(voxInnerVolume, 0.9f);
+                Voxels voxInnerVolume   = voxHotFluidVoid + voxCoolFluidVoid;
+                Voxels voxSplitters     = voxHotFluidSplitters + voxCoolFluidSplitters;
+                Voxels voxOuterVolume   = voxInnerVolume.voxOffset(0.9f);
 
 
                 GetFlange(
@@ -171,16 +171,16 @@ namespace Leap71
                 Library.oViewer().RequestScreenShot(Sh.strGetExportPath(Sh.EExport.TGA, $"Screenshot_05"));
 
 
-                voxFlange               = Sh.voxOverOffset(voxFlange, 5f, 0f);
-                voxFlange               = Sh.voxSmoothen(voxFlange, 0.5f);
+                voxFlange.Fillet(5f);
+                voxFlange.Smoothen(0.5f);
                 Sh.PreviewVoxels(voxFlange, Cp.clrGray, 0.6f);
                 Library.oViewer().RequestScreenShot(Sh.strGetExportPath(Sh.EExport.TGA, $"Screenshot_06"));
 
 
-                voxOuterVolume          = Sh.voxUnion(voxOuterVolume, voxFlange);
-                voxOuterVolume          = Sh.voxUnion(voxOuterVolume, voxGetIOSupports());
-                voxOuterVolume          = Sh.voxOverOffset(voxOuterVolume, 5f, 0f);
-                voxOuterVolume          = Sh.voxSmoothen(voxOuterVolume, 0.5f);
+                voxOuterVolume          += voxFlange;
+                voxOuterVolume          += voxGetIOSupports();
+                voxOuterVolume.Fillet(5f);
+                voxOuterVolume.Smoothen(0.5f);
                 Library.oViewer().RequestScreenShot(Sh.strGetExportPath(Sh.EExport.TGA, $"Screenshot_07"));
 
 
@@ -188,19 +188,19 @@ namespace Leap71
                     ref voxOuterVolume);
 
 
-                voxOuterVolume          = Sh.voxUnion(voxOuterVolume, voxStructure);
-                voxOuterVolume          = Sh.voxSubtract(voxOuterVolume, voxScrewHoles);
-                voxOuterVolume          = Sh.voxExtrudeZSlice(voxOuterVolume, 4f, -4f);
-                voxOuterVolume          = Sh.voxSubtract(voxOuterVolume, voxGetPrintWeb());
+                voxOuterVolume          += voxStructure;
+                voxOuterVolume          -= voxScrewHoles;
+                voxOuterVolume.ProjectZSlice(4f, -4f);
+                voxOuterVolume          -=voxGetPrintWeb();
 
-                Voxels voxResult        = Sh.voxSubtract(voxOuterVolume, voxInnerVolume);
-                voxResult               = Sh.voxUnion(voxResult, voxFins);
-                voxResult               = Sh.voxUnion(voxResult, voxSplitters);
-                voxResult               = Sh.voxIntersect(voxResult, m_voxBounding);
+                Voxels voxResult        = voxOuterVolume - voxInnerVolume;
+                voxResult               += voxFins;
+                voxResult               += voxSplitters;
+                voxResult               &= m_voxBounding;
 
                 Voxels voxThreads       = voxGetIOThreads();
-                voxResult               = Sh.voxUnion(voxResult, voxThreads);
-                voxResult               = Sh.voxSubtract(voxResult, voxGetIOCuts());
+                voxResult               += voxThreads;
+                voxResult               -= voxGetIOCuts();
 
 
                 Library.oViewer().RequestScreenShot(Sh.strGetExportPath(Sh.EExport.TGA, $"Screenshot_08"));

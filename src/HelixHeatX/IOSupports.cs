@@ -49,7 +49,7 @@ namespace Leap71
             /// Generates lattice-based support beams underneath the inlet and
             /// outlet pipes in order to make them printable.
             /// </summary>
-            protected Voxels voxGetIOSupports()
+            Voxels voxGetIOSupports()
             {
                 float fMinBeam                  = 1f;
                 Lattice oLattice                = new Lattice();

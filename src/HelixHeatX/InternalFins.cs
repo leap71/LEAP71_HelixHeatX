@@ -50,7 +50,7 @@ namespace Leap71
             /// In order to make the fins printable, they feature a rooftop-like
             /// height distribution across their width.
             /// </summary>
-            protected Voxels voxGetTurningFins(EFluid eFluid)
+            Voxels voxGetTurningFins(EFluid eFluid)
             {
                 float fPhiStart     = MathF.PI;
                 if (eFluid == EFluid.COOL)
@@ -117,7 +117,7 @@ namespace Leap71
             /// height distribution across their width.
             /// The vertical fins feature a twist for mixing.
             /// </summary>
-            protected Voxels voxGetStraightFins(EFluid eFluid)
+            Voxels voxGetStraightFins(EFluid eFluid)
             {
                 float fPhiStart     = MathF.PI;
                 if (eFluid == EFluid.COOL)

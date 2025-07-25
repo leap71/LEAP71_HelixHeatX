@@ -48,7 +48,7 @@ namespace Leap71
             /// <summary>
             /// Generates the inlet pipe transition and internal splitter wall for the specified fluid volume.
             /// </summary>
-            protected void GetInlet(
+            void GetInlet(
                 out Voxels  voxInlet,
                 out Voxels  voxSplitter,
                 EFluid      eFluid,
@@ -124,13 +124,13 @@ namespace Leap71
                 }
                 voxInlet    = new Voxels(latInlet);
                 voxSplitter = new Voxels(latSplitter);
-                voxSplitter = Sh.voxIntersect(voxSplitter, voxInlet);
+                voxSplitter &= voxInlet;
             }
 
             /// <summary>
             /// Generates the outlet pipe transition and internal splitter wall for the specified fluid volume.
             /// </summary>
-            protected void GetOutlet(
+            void GetOutlet(
                 out Voxels  voxOutlet,
                 out Voxels  voxSplitter,
                 EFluid      eFluid,
@@ -206,7 +206,7 @@ namespace Leap71
                 }
                 voxOutlet   = new Voxels(latOutlet);
                 voxSplitter = new Voxels(latSplitter);
-                voxSplitter = Sh.voxIntersect(voxSplitter, voxOutlet);
+                voxSplitter &= voxOutlet;
             }
 		}
 	}

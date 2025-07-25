@@ -49,7 +49,7 @@ namespace Leap71
             /// Generates the outer structure of the cube.
             /// Including a shell wall and reinforcement ribs.
             /// </summary>
-            protected Voxels voxGetOuterStructure()
+            Voxels voxGetOuterStructure()
             {
                 float fTotalLength          = 100;
                 float fBeam                 = 1f;
@@ -88,9 +88,9 @@ namespace Leap71
                 }
 
                 Voxels voxStructure = new Voxels(oLattice);
-                voxStructure        = Sh.voxOverOffset(voxStructure, 5f, 0.5f);
-                voxStructure        = Sh.voxSmoothen(voxStructure, 1f);
-                voxStructure        = Sh.voxIntersect(voxStructure, m_voxBounding);
+                voxStructure.OverOffset(5f, 0.5f);
+                voxStructure .Smoothen(1f);
+                voxStructure        &= m_voxBounding;
                 return voxStructure;
             }
 		}

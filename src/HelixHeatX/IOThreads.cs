@@ -50,7 +50,7 @@ namespace Leap71
             /// Generates thread reinforcements on all inlet and outlet pipe ends.
             /// Adds material for post-processing thread cutting and connectors.
             /// </summary>
-            protected Voxels voxGetIOThreads()
+            Voxels voxGetIOThreads()
             {
                 List<Voxels> aVoxelList       = new List<Voxels>();
                 float fOuterRadius              = 14f;
@@ -77,7 +77,7 @@ namespace Leap71
                 aVoxelList.Add(oThread3.voxConstruct());
                 aVoxelList.Add(oThread4.voxConstruct());
 
-                Voxels voxIOFlanges             = Sh.voxUnion(aVoxelList);
+                Voxels voxIOFlanges             = Voxels.voxCombineAll(aVoxelList);
                 Sh.PreviewVoxels(voxIOFlanges, Cp.clrRacingGreen, 0.6f);
                 return voxIOFlanges;
             }
