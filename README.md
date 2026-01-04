@@ -2,7 +2,7 @@
 
 ## Prep
 
-Before you dive into this exercise, make sure you have [PicoGK](https://github.com/leap71/PicoGK/blob/main/Documentation/README.md) up and running and you were able to complete [Tutorial 1 using the ShapeKernel library](https://github.com/leap71/LEAP71_ShapeKernel/blob/main/Documentation/README-GettingStarted.md).
+Before you dive into this exercise, make sure you have [PicoGK](https://github.com/leap71/PicoGK/blob/main/README.md) up and running and you were able to complete [Tutorial 1 using the ShapeKernel library](https://github.com/leap71/LEAP71_ShapeKernel/blob/main/Documentation/README-GettingStarted.md).
 
 <img src="Documentation/helixheatxrenders5.jpg" alt="image-20231019213901141" style="zoom:100%;" />
 
